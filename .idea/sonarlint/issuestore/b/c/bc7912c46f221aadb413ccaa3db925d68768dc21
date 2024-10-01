@@ -1,6 +1,4 @@
 
 v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÿÂõæ8ú·¿¤2
 \
-java:S1659"@Declare "ys1" and all following declarations on a separate line.(Œ¿r8Ÿú·¿¤2
-o	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄÚµıÿÿÿÿ8 ú·¿¤2
-o	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ö–¤‡ÿÿÿÿÿ8¡ú·¿¤2
+java:S1659"@Declare "ys1" and all following declarations on a separate line.(Œ¿r8ä¢ÇÇ¤2

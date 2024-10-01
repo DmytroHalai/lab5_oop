@@ -1,8 +1,4 @@
 
 {	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(®Ùåâıÿÿÿÿ8¬ƒ€Ç¤2
 B
-java:S1128"%Remove this unused import 'java.awt'.(ï´µ©8íóÇ¤2
-Z
-java:S1128"8Remove this unused import 'java.awt.event.MouseAdapter'.( ÜÍÁûÿÿÿÿ8Ñ‘Ç¤2
-S
-java:S1128"6Remove this unused import 'java.awt.event.MouseEvent'.(›õ8Ò‘Ç¤2
+java:S1128"%Remove this unused import 'java.awt'.(ï´µ©8ë»ıÌ¤2

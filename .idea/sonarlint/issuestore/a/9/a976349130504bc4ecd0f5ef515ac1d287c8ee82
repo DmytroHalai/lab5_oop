@@ -1,6 +1,4 @@
 
 {	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(®Ùåâıÿÿÿÿ8Àé…Ç¤2
-£
-java:S1186/"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ˆ…ùÅşÿÿÿÿ8Æé…Ç¤2
 K
-java:S1948	".Make "currentShape" transient or serializable.(Ï·ßÍ8Çé…Ç¤2
+java:S1948".Make "currentShape" transient or serializable.(Ï·ßÍ8¦ÄÍÈ¤2

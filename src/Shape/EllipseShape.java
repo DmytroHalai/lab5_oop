@@ -5,7 +5,7 @@ import java.awt.*;
 public class EllipseShape extends Shape{
 
     @Override
-    public void Show(Graphics g) {
+    public void show(Graphics g) {
         int x = Math.min(xs1, xs2);
         int y = Math.min(ys1, ys2);
         int width = Math.abs(xs2 - xs1);
