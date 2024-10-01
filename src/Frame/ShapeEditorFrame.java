@@ -1,15 +1,39 @@
 package Frame;
 
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ShapeEditorFrame extends JFrame {
     private final ShapeObjectsEditor editor;
+
     public ShapeEditorFrame() {
         editor = new ShapeObjectsEditor();
         setTitle("Редактор фігур");
         setSize(800, 600);
         setJMenuBar(createMenuBar());
-//        add(editor);
+        add(editor);
+
+        editor.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                editor.onLBdown(editor.getGraphics(), e.getX(), e.getY());
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                editor.onLBup(editor.getGraphics());
+                editor.repaint();
+            }
+        });
+
+        editor.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                editor.onMouseMove(editor.getGraphics(), e.getX(), e.getY());
+                editor.repaint();
+            }
+        });
     }
 
     private JMenuBar createMenuBar() {
