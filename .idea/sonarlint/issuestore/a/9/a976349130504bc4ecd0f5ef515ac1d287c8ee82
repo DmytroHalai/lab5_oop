@@ -1,0 +1,17 @@
+
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(®Ùåâıÿÿÿÿ8†¦ÃÃ¤2
+
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ç©ã¶8‡¦ÃÃ¤2
+
+java:S1186!"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(é‚Ÿ¥8‡¦ÃÃ¤2
+£
+java:S1186%"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÇÌß‡üÿÿÿÿ8‡¦ÃÃ¤2
+
+java:S1186)"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ƒç 8ˆ¦ÃÃ¤2
+£
+java:S1186-"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ˆ…ùÅşÿÿÿÿ8ˆ¦ÃÃ¤2
+
+java:S1186
+"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(íÈÌn8ˆ¦ÃÃ¤2
+M
+java:S1068"0Remove this unused "currentShape" private field.(Ï·ßÍ8Œ¦ÃÃ¤2
