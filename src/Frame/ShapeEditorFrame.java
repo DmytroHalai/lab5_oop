@@ -1,7 +1,6 @@
 package Frame;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -15,7 +14,6 @@ public class ShapeEditorFrame extends JFrame {
         setJMenuBar(createMenuBar());
         add(editor);
 
-        // Додаємо обробники миші
         editor.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {

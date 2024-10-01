@@ -10,16 +10,16 @@ public class LineEditor extends ShapeEditor{
     @Override
     public void onLBdown(Graphics g, int x, int y) {
         super.onLBdown(g, x, y);
-        currentLine = new LineShape(); // Створюємо новий еліпс
-        currentLine.set(x, y, x, y); // Встановлюємо початкові координати
+        currentLine = new LineShape();
+        currentLine.set(x, y, x, y);
     }
 
     @Override
     public void onLBup(Graphics g) {
         super.onLBup(g);
         if (currentLine != null) {
-            addShape(currentLine); // Додаємо еліпс до списку фігур через метод батьківського класу
-            currentLine = null; // Очищуємо поточний еліпс
+            addShape(currentLine);
+            currentLine = null;
         }
     }
 
@@ -27,7 +27,7 @@ public class LineEditor extends ShapeEditor{
     public void onMouseMove(Graphics g, int x, int y) {
         super.onMouseMove(g, x, y);
         if (currentLine != null) {
-            currentLine.set(x1, y1, x, y); // Оновлюємо координати гумового сліду
+            currentLine.set(x1, y1, x, y);
         }
     }
 }

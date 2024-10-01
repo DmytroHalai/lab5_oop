@@ -17,10 +17,8 @@ public class PointEditor extends ShapeEditor{
     @Override
     public void onLBup(Graphics g) {
         super.onLBup(g);
-        if (currentPoint != null) {
-            addShape(currentPoint); // Додаємо еліпс до списку фігур через метод батьківського класу
-            currentPoint = null; // Очищуємо поточний еліпс
-        }
+        addShape(currentPoint);
+        currentPoint = null;
     }
 
     @Override

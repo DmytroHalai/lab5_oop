@@ -3,21 +3,22 @@ package Frame;
 import Editor.*;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import Shape.Shape;
 
 public class ShapeObjectsEditor extends JPanel {
     private ShapeEditor currentShape;
 
+    private final ArrayList<Shape> shapeList;
+
     public ShapeObjectsEditor() {
         currentShape = null;
+        shapeList = new ArrayList<>();
     }
 
-    public void startPointEditor() {
-        currentShape = new PointEditor();
-    }
+    public void startPointEditor() {currentShape = new PointEditor();}
 
-    public void startLineEditor() {
-        currentShape = new LineEditor();
-    }
+    public void startLineEditor() {currentShape = new LineEditor();}
 
     public void startRectEditor() {
         currentShape = new RectEditor();
@@ -48,9 +49,11 @@ public class ShapeObjectsEditor extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // Малюємо фігури
+        for (Shape ignored : shapeList) {
+            onPaint(g);
+        }
         if (currentShape != null) {
-            onPaint(g); // Викликаємо onPaint для малювання поточної фігури
+            onPaint(g);
         }
     }
 
@@ -58,9 +61,5 @@ public class ShapeObjectsEditor extends JPanel {
         if (currentShape != null) {
             currentShape.onPaint(g);
         }
-    }
-
-    public void onInitMenuPopup(Graphics g) {
-        // Логіка для ініціалізації меню
     }
 }

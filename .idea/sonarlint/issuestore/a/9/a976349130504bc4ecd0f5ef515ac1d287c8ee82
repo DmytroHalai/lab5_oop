@@ -1,4 +1,9 @@
 
-{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(®Ùåâıÿÿÿÿ8Àé…Ç¤2
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(®Ùåâıÿÿÿÿ8®ÙÉÎ¤2
 K
-java:S1948".Make "currentShape" transient or serializable.(Ï·ßÍ8¦ÄÍÈ¤2
+java:S1948
+".Make "currentShape" transient or serializable.(Ï·ßÍ8Á«ÓÎ¤2
+M
+java:S1948"+Make "shapeList" transient or serializable.(¥½Šßşÿÿÿÿ8´ÙÉÎ¤2
+N
+java:S14814",Remove this unused "ignored" local variable.(ÒµÒ”ıÿÿÿÿ8€´ÔÎ¤2
