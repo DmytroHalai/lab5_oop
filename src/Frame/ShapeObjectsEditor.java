@@ -2,13 +2,14 @@ package Frame;
 
 import Editor.*;
 
+import javax.swing.*;
 import java.awt.*;
 
-public class ShapeObjectsEditor {
+public class ShapeObjectsEditor extends JPanel {
     private ShapeEditor currentShape;
 
     public ShapeObjectsEditor(){
-
+        currentShape = null;
     }
     public void startPointEditor(){
         currentShape = new PointEditor();
@@ -26,20 +27,21 @@ public class ShapeObjectsEditor {
         currentShape = new EllipseEditor();
     }
 
-    public void onLBdown(Graphics g){
-
+    public void onLBdown(Graphics g, int x, int y){
+        if (currentShape != null){currentShape.onLBdown(g, x, y);}
     }
 
     public void onLBup(Graphics g){
+        if (currentShape != null){currentShape.onLBup(g);}
 
     }
 
-    public void onMouseMove(Graphics g){
-
+    public void onMouseMove(Graphics g, int x, int y){
+        if (currentShape != null){currentShape.onMouseMove(g, x, y);}
     }
 
     public void onPaint(Graphics g){
-
+        if (currentShape != null){currentShape.onPaint(g);}
     }
 
     public void onInitMenuPopup(Graphics g){

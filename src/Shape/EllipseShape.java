@@ -1,7 +1,5 @@
 package Shape;
 
-import org.w3c.dom.css.RGBColor;
-
 import java.awt.*;
 
 public class EllipseShape extends Shape{

@@ -1,5 +1,8 @@
 
-{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(®Ùåâýÿÿÿÿ8ÞÌ¹Ã¤2
-J
-java:S1948"(Make "editor" transient or serializable.(‰Ÿµèýÿÿÿÿ8ãÌ¹Ã¤2
-]	java:S125"<This block of commented-out lines of code should be removed.(·úž¦ùÿÿÿÿ8åÌ¹Ã¤2
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(®Ùåâýÿÿÿÿ8¬ƒ€Ç¤2
+B
+java:S1128"%Remove this unused import 'java.awt'.(ï´µ©8íóÇ¤2
+Z
+java:S1128"8Remove this unused import 'java.awt.event.MouseAdapter'.( ÜÍÁûÿÿÿÿ8Ñ‘ŽÇ¤2
+S
+java:S1128"6Remove this unused import 'java.awt.event.MouseEvent'.(Ž›õ8Ò‘ŽÇ¤2

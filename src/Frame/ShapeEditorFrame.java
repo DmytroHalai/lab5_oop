@@ -1,6 +1,9 @@
 package Frame;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ShapeEditorFrame extends JFrame {
     private final ShapeObjectsEditor editor;
@@ -9,7 +12,7 @@ public class ShapeEditorFrame extends JFrame {
         setTitle("Редактор фігур");
         setSize(800, 600);
         setJMenuBar(createMenuBar());
-//        add(editor);
+        add(editor);
     }
 
     private JMenuBar createMenuBar() {
