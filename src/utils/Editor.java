@@ -2,9 +2,9 @@ package utils;
 
 import java.awt.*;
 
-public abstract class Editor  {
-    public abstract void onLBdown(Graphics g, int x, int y);
-    public abstract void onLBup(Graphics g);
-    public abstract void onMouseMove(Graphics g, int x, int y);
-    public abstract void onPaint(Graphics g);
+public interface Editor  {
+void onLBdown(Graphics2D g, int x, int y);
+void onLBup(Graphics2D g);
+void onMouseMove(Graphics2D g, int x, int y);
+void onPaint(Graphics2D g);
 }

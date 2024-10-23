@@ -28,25 +28,30 @@ public class ShapeObjectsEditor extends JPanel {
         currentShape = new EllipseEditor();
     }
 
-    public void onLBdown(Graphics g, int x, int y) {
+    public void startLineOOEditor() {
+        currentShape = new LineOOEditor();
+    }
+
+    public void onLBdown(Graphics2D g, int x, int y) {
         if (isNotEmpty(currentShape)) currentShape.onLBdown(g, x, y);
     }
 
-    public void onLBup(Graphics g) {
+    public void onLBup(Graphics2D g) {
         if (isNotEmpty(currentShape)) currentShape.onLBup(g);
     }
 
-    public void onMouseMove(Graphics g, int x, int y) {
+    public void onMouseMove(Graphics2D g, int x, int y) {
         if (isNotEmpty(currentShape)) currentShape.onMouseMove(g, x, y);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
         super.paintComponent(g);
-        if (isNotEmpty(currentShape)) onPaint(g);
+        if (isNotEmpty(currentShape)) onPaint(g2d);
     }
 
-    public void onPaint(Graphics g) {
+    public void onPaint(Graphics2D g) {
         if (isNotEmpty(currentShape)) currentShape.onPaint(g);
     }
 

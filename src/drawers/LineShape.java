@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class LineShape extends Shape {
     @Override
-    public void show(Graphics g, boolean isMark) {
+    public void show(Graphics2D g, boolean isMark) {
         if (isMark) {
             g.setColor(Color.RED);
         } else {

@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class RectShape extends Shape {
     @Override
-    public void show(Graphics g, boolean isMark) {
+    public void show(Graphics2D g, boolean isMark) {
         int x;
         int y;
         int width;

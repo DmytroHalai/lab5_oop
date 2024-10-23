@@ -24,12 +24,12 @@ public class ShapeEditorFrame extends JFrame {
         editor.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                editor.onLBdown(editor.getGraphics(), e.getX(), e.getY());
+                editor.onLBdown((Graphics2D) editor.getGraphics(), e.getX(), e.getY());
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                editor.onLBup(editor.getGraphics());
+                editor.onLBup((Graphics2D)editor.getGraphics());
                 editor.repaint();
             }
         });
@@ -37,7 +37,7 @@ public class ShapeEditorFrame extends JFrame {
         editor.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                editor.onMouseMove(editor.getGraphics(), e.getX(), e.getY());
+                editor.onMouseMove((Graphics2D)editor.getGraphics(), e.getX(), e.getY());
                 editor.repaint();
             }
         });
@@ -48,6 +48,7 @@ public class ShapeEditorFrame extends JFrame {
         String point = "Точка";
         String rect = "Прямокутник";
         String line = "Лінія";
+        String lineOO = "Лінія з еліпсами";
 
         JMenuBar menuBar = new JMenuBar();
         JMenu shapeMenu = new JMenu("Об'єкти");
@@ -102,6 +103,11 @@ public class ShapeEditorFrame extends JFrame {
         addMenuItem(shapeMenu, ellipse, e -> {
             editor.startEllipseEditor();
             setTitle(ellipse);
+        });
+
+        addMenuItem(shapeMenu, lineOO, e -> {
+            editor.startLineOOEditor();
+            setTitle(lineOO);
         });
 
         toolBar.add(panel);

@@ -1,16 +1,17 @@
 package utils;
 
+import drawers.LineOOShape;
 import drawers.LineShape;
 
 import java.awt.*;
 
-public class LineEditor extends ShapeEditor{
-    private LineShape currentLine;
+public class LineOOEditor extends ShapeEditor{
+    private LineOOShape currentLine;
 
     @Override
     public void onLBdown(Graphics2D g, int x, int y) {
         super.onLBdown(g, x, y);
-        currentLine = new LineShape();
+        currentLine = new LineOOShape();
         currentLine.set(x, y, x, y);
     }
 
