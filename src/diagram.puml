@@ -1,0 +1,128 @@
+@startuml
+
+' Визначаємо пакети
+package editor {
+    class Editor {
+        +void onLBdown(Graphics g, int x, int y)
+        +void onLBup(Graphics g)
+        +void onMouseMove(Graphics g, int x, int y)
+        +void onPaint(Graphics g)
+    }
+
+    class ShapeEditor{
+        #boolean isDragging
+        #int x1, y1, x2, y2
+        #List<Shape> shapes
+        +onLBdown(Graphics g, int x, int y)
+        +onLBup(Graphics g)
+        +onMouseMove(Graphics g, int x, int y)
+        +onPaint(Graphics g)
+        +addShape(Shape shape)
+    }
+
+    class EllipseEditor extends ShapeEditor {
+        -EllipseShape currentEllipse
+        +onLBdown(Graphics g, int x, int y)
+        +onLBup(Graphics g)
+        +onMouseMove(Graphics g, int x, int y)
+        +onPaint(Graphics g)
+    }
+
+    class LineEditor extends ShapeEditor {
+        -LineShape currentLine
+        +onLBdown(Graphics g, int x, int y)
+        +onLBup(Graphics g)
+        +onMouseMove(Graphics g, int x, int y)
+        +onPaint(Graphics g)
+    }
+
+    class PointEditor extends ShapeEditor {
+        -PointShape currentPoint
+        +onLBdown(Graphics g, int x, int y)
+        +onLBup(Graphics g)
+        +onMouseMove(Graphics g, int x, int y)
+
+    }
+
+    class RectEditor extends ShapeEditor {
+        -RectShape currentRect
+        +onLBdown(Graphics g, int x, int y)
+        +onLBup(Graphics g)
+        +onMouseMove(Graphics g, int x, int y)
+        +onPaint(Graphics g)
+    }
+}
+
+package frame {
+    class ShapeEditorFrame {
+        -ShapeObjectsEditor editor
+        -JButton lastPressedButton
+        +ShapeEditorFrame()
+        -void initMouseListeners()
+        -JMenuBar createMenuBar()
+        -void addToolBarButton(JPanel panel, String iconPath, ActionListener action)
+        -void addMenuItem(JMenu menu, String name, ActionListener action)
+        -JButton createButtonWithIcon(String iconPath)
+        -void changeButtonColor(ActionEvent e)
+        +createMenuBar()
+    }
+
+    class ShapeObjectsEditor {
+        -ShapeEditor currentShape
+        +startPointEditor()
+        +startLineEditor()
+        +startRectEditor()
+        +startEllipseEditor()
+        +onLBdown(Graphics g, int x, int y)
+        +onLBup(Graphics g)
+        +onMouseMove(Graphics g, int x, int y)
+        #void paintComponent(Graphics g)
+        +onPaint(Graphics g)
+        -boolean isNotEmpty(ShapeEditor el)
+    }
+
+}
+
+package shape {
+    abstract class Shape {
+        #int xs1, ys1, xs2, ys2
+        +set(int x1, int y1, int x2, int y2)
+        +show(Graphics g, boolean isMark)
+    }
+
+    Shape <|-u- EllipseShape
+    Shape <|-u- LineShape
+    Shape <|-u- PointShape
+    Shape <|-u- RectShape
+
+    class EllipseShape {
+        +show(Graphics g, boolean isMark)
+    }
+
+    class LineShape {
+        +show(Graphics g, boolean isMark)
+    }
+
+    class PointShape {
+        +show(Graphics g, boolean isMark)
+    }
+
+    class RectShape {
+        +show(Graphics g, boolean isMark)
+    }
+}
+
+class Main {
+    +main(String[] args)
+}
+
+Main --> ShapeEditorFrame
+ShapeEditorFrame --> ShapeObjectsEditor
+ShapeObjectsEditor --> ShapeEditor
+EllipseEditor -d-> EllipseShape
+LineEditor -d-> LineShape
+PointEditor -d-> PointShape
+RectEditor -d-> RectShape
+ShapeEditor -r-|> Editor
+
+@enduml
