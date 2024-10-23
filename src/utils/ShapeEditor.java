@@ -1,18 +1,18 @@
 package utils;
 
 import drawers.Shape;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShapeEditor implements Editor {
+    protected static final List<Shape> shapes = new ArrayList<>(104);
     protected boolean isDragging = false;
     protected int x1;
     protected int y1;
     protected int x2;
     protected int y2;
-
-    protected static final List<Shape> shapes = new ArrayList<>(104);
 
     @Override
     public void onLBdown(Graphics2D g, int x, int y) {

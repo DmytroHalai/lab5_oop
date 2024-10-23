@@ -1,5 +1,7 @@
 package builder;
 
+import utils.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,11 +10,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class ShapeEditorFrame extends JFrame {
-    private final ShapeObjectsEditor editor;
+    private final MyEditor editor;
     private JButton lastPressedButton;
 
     public ShapeEditorFrame() {
-        editor = new ShapeObjectsEditor();
+        editor = new MyEditor();
         setTitle("Редактор фігур");
         setSize(800, 600);
         setJMenuBar(createMenuBar());
@@ -29,7 +31,7 @@ public class ShapeEditorFrame extends JFrame {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                editor.onLBup((Graphics2D)editor.getGraphics());
+                editor.onLBup((Graphics2D) editor.getGraphics());
                 editor.repaint();
             }
         });
@@ -37,7 +39,7 @@ public class ShapeEditorFrame extends JFrame {
         editor.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                editor.onMouseMove((Graphics2D)editor.getGraphics(), e.getX(), e.getY());
+                editor.onMouseMove((Graphics2D) editor.getGraphics(), e.getX(), e.getY());
                 editor.repaint();
             }
         });
@@ -49,6 +51,7 @@ public class ShapeEditorFrame extends JFrame {
         String rect = "Прямокутник";
         String line = "Лінія";
         String lineOO = "Лінія з еліпсами";
+        String cube = "Куб";
 
         JMenuBar menuBar = new JMenuBar();
         JMenu shapeMenu = new JMenu("Об'єкти");
@@ -58,56 +61,75 @@ public class ShapeEditorFrame extends JFrame {
         JPanel panel = new JPanel();
 
         addToolBarButton(panel, "pic/ellipse.png", e -> {
-            editor.startEllipseEditor();
+            editor.start(new EllipseEditor());
             setTitle(ellipse);
 
             changeButtonColor(e);
-        }, "Еліпс");
+        }, ellipse);
 
         addToolBarButton(panel, "pic/rect.png", e -> {
-            editor.startRectEditor();
+            editor.start(new RectEditor());
             setTitle(rect);
 
             changeButtonColor(e);
-        }, "Прямокутник");
+        }, rect);
 
         addToolBarButton(panel, "pic/line.png", e -> {
-            editor.startLineEditor();
+            editor.start(new LineEditor());
             setTitle(line);
 
             changeButtonColor(e);
-        }, "Лінія");
+        }, line);
 
         addToolBarButton(panel, "pic/point.png", e -> {
-            editor.startPointEditor();
+            editor.start(new PointEditor());
             setTitle(point);
 
             changeButtonColor(e);
-        }, "Точка");
+        }, point);
+
+        addToolBarButton(panel, "pic/lineOO.png", e -> {
+            editor.start(new LineOOEditor());
+            setTitle(lineOO);
+
+            changeButtonColor(e);
+        }, line);
+
+        addToolBarButton(panel, "pic/cube.png", e -> {
+            editor.start(new CubeEditor());
+            setTitle(cube);
+
+            changeButtonColor(e);
+        }, cube);
 
         addMenuItem(shapeMenu, point, e -> {
-            editor.startPointEditor();
+            editor.start(new PointEditor());
             setTitle(point);
         });
 
         addMenuItem(shapeMenu, line, e -> {
-            editor.startLineEditor();
+            editor.start(new LineEditor());
             setTitle(line);
         });
 
         addMenuItem(shapeMenu, rect, e -> {
-            editor.startRectEditor();
+            editor.start(new RectEditor());
             setTitle(rect);
         });
 
         addMenuItem(shapeMenu, ellipse, e -> {
-            editor.startEllipseEditor();
+            editor.start(new EllipseEditor());
             setTitle(ellipse);
         });
 
         addMenuItem(shapeMenu, lineOO, e -> {
-            editor.startLineOOEditor();
+            editor.start(new LineOOEditor());
             setTitle(lineOO);
+        });
+
+        addMenuItem(shapeMenu, cube, e -> {
+            editor.start(new CubeEditor());
+            setTitle(cube);
         });
 
         toolBar.add(panel);

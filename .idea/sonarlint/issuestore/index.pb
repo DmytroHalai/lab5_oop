@@ -98,3 +98,13 @@ K
 src/drawers/LineDrawer.java,9\5\95c569071dfcf7b4031ea3e2ad24c0cc59ffdb8b
 K
 src/utils/LineOOEditor.java,e\e\ee0622fbac5bb685e5cc76209eda28a1a77d6d66
+J
+src/drawers/CubeShape.java,f\3\f359710e76e9dd273d784a859cf8b3b413027a85
+I
+src/utils/CubeEditor.java,b\6\b6b3010d031b379b805525c1b5f118c47a6504b2
+I
+src/builder/MyEditor.java,9\2\929efd5f06005b651783ef5ca7220a3433932303
+O
+src/builder/MenuBarCreator.java,4\0\40bdeca3e068fe32346f3aa0c60afed25850e3ec
+M
+src/drawers/StrokeSetter.java,6\f\6f4d688f9ecc7b7edad2e3e4b04a4513faf4a279

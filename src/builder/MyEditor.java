@@ -1,35 +1,20 @@
 package builder;
 
+import drawers.Shape;
 import utils.*;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ShapeObjectsEditor extends JPanel {
+public class MyEditor extends JPanel {
     private transient ShapeEditor currentShape;
 
-    public ShapeObjectsEditor() {
+    public MyEditor() {
         currentShape = null;
     }
 
-    public void startPointEditor() {
-        currentShape = new PointEditor();
-    }
-
-    public void startLineEditor() {
-        currentShape = new LineEditor();
-    }
-
-    public void startRectEditor() {
-        currentShape = new RectEditor();
-    }
-
-    public void startEllipseEditor() {
-        currentShape = new EllipseEditor();
-    }
-
-    public void startLineOOEditor() {
-        currentShape = new LineOOEditor();
+    public void start(ShapeEditor shape){
+        currentShape = shape;
     }
 
     public void onLBdown(Graphics2D g, int x, int y) {
