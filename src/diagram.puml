@@ -1,15 +1,14 @@
 @startuml
 
-' Визначаємо пакети
-package editor {
-    class Editor {
+package utils {
+    interface Editor {
         +void onLBdown(Graphics g, int x, int y)
         +void onLBup(Graphics g)
         +void onMouseMove(Graphics g, int x, int y)
         +void onPaint(Graphics g)
     }
 
-    class ShapeEditor{
+    class ShapeEditor implements Editor{
         #boolean isDragging
         #int x1, y1, x2, y2
         #List<Shape> shapes
@@ -18,6 +17,22 @@ package editor {
         +onMouseMove(Graphics g, int x, int y)
         +onPaint(Graphics g)
         +addShape(Shape shape)
+    }
+
+    class LineOOEditor extends ShapeEditor {
+        -LineOOShape currentEllipse
+        +onLBdown(Graphics g, int x, int y)
+        +onLBup(Graphics g)
+        +onMouseMove(Graphics g, int x, int y)
+        +onPaint(Graphics g)
+    }
+
+    class CubeEditor extends ShapeEditor {
+        -CubeShape currentEllipse
+        +onLBdown(Graphics g, int x, int y)
+        +onLBup(Graphics g)
+        +onMouseMove(Graphics g, int x, int y)
+        +onPaint(Graphics g)
     }
 
     class EllipseEditor extends ShapeEditor {
@@ -53,7 +68,7 @@ package editor {
     }
 }
 
-package frame {
+package builder {
     class ShapeEditorFrame {
         -ShapeObjectsEditor editor
         -JButton lastPressedButton
@@ -64,15 +79,11 @@ package frame {
         -void addMenuItem(JMenu menu, String name, ActionListener action)
         -JButton createButtonWithIcon(String iconPath)
         -void changeButtonColor(ActionEvent e)
-        +createMenuBar()
     }
 
-    class ShapeObjectsEditor {
+    class MyEditor {
         -ShapeEditor currentShape
-        +startPointEditor()
-        +startLineEditor()
-        +startRectEditor()
-        +startEllipseEditor()
+        +start(ShapeEditor shape)
         +onLBdown(Graphics g, int x, int y)
         +onLBup(Graphics g)
         +onMouseMove(Graphics g, int x, int y)
@@ -83,7 +94,7 @@ package frame {
 
 }
 
-package shape {
+package drawers {
     abstract class Shape {
         #int xs1, ys1, xs2, ys2
         +set(int x1, int y1, int x2, int y2)
@@ -110,19 +121,51 @@ package shape {
     class RectShape {
         +show(Graphics g, boolean isMark)
     }
+
+    class CubeShape extends Shape implements LineDrawer, RectDrawer {
+        +void showLine(Graphics2D g, int x, int y, int x2, int y2, boolean isMark)
+        +void showRect(Graphics2D g, int x, int y, int width, boolean isMark)
+        -void drawRects(Graphics2D g, boolean isMark)
+        -void drawLines(Graphics2D g, boolean isMark)
+        -double calcVectorLength(int x, int y, int x2, int y2)
+        -int[] findSecondRectCoord(int x, int y, int sideLength)
+        -double findSideLength(int x, int y, int x2, int y2)
+        +void show(Graphics2D g, boolean isMark)
+    }
+
+    interface EllipseDrawer {
+        void showEl(Graphics2D g, int x, int y, int width, int height, boolean isMark)
+    }
+
+    interface LineDrawer {
+        void showLine(Graphics2D g, int x, int y, int x2, int y2, boolean isMark)
+    }
+
+    class LineOOShape extends Shape implements EllipseDrawer, LineDrawer {
+        +void showEl(Graphics2D g, int x, int y, int width, int height, boolean isMark)
+        +void showLine(Graphics2D g, int x, int y, int x2, int y2, boolean isMark)
+        -void drawElls(Graphics2D g, int r, boolean isMark)
+        +void show(Graphics2D g, boolean isMark)
+    }
+
+    interface RectDrawer {
+        void showRect(Graphics2D g, int x1, int y1, int width, boolean isMark)
+    }
 }
 
 class Main {
     +main(String[] args)
 }
 
-Main --> ShapeEditorFrame
-ShapeEditorFrame --> ShapeObjectsEditor
-ShapeObjectsEditor --> ShapeEditor
-EllipseEditor -d-> EllipseShape
-LineEditor -d-> LineShape
-PointEditor -d-> PointShape
-RectEditor -d-> RectShape
-ShapeEditor -r-|> Editor
+Main --> MyEditor
+ShapeEditorFrame --> MyEditor
+MyEditor --> ShapeEditor
+EllipseEditor --> EllipseShape
+LineEditor --> LineShape
+PointEditor --> PointShape
+RectEditor --> RectShape
+LineOOShape ---|> LineDrawer
+CubeShape --> RectDrawer
+LineOOShape ---|> EllipseDrawer
 
 @enduml

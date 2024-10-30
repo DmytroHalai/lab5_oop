@@ -44,4 +44,11 @@ public class ShapeEditor implements Editor {
     public void addShape(Shape shape) {
         shapes.add(shape);
     }
+
+    public void undoLastShape() {
+        if (!shapes.isEmpty()) {
+            shapes.removeLast();
+        }
+    }
+
 }

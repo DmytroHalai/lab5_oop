@@ -74,8 +74,6 @@ K
 src/drawers/PointShape.java,9\e\9e9ecb30474487a06063fafd9e4d415269a4a8c3
 J
 src/drawers/LineShape.java,a\b\ab84c97d16342812d9c122fffaa294ec0213b9fd
-S
-#src/builder/ShapeObjectsEditor.java,9\d\9d42265316a6b1ae59eae79553da0655bf621de1
 E
 src/utils/Editor.java,4\c\4c5f981afc78bc66f910199533324abe04b70c41
 F
@@ -86,8 +84,6 @@ M
 src/diagram.puml,b\e\bebac4384185a72e6cb1de0e93ecb5d64e0fe613
 =
 src/Main.java,9\2\924f089edb4af5ee45c8a9d1129cd28e2b368138
-Q
-!src/drawers/EllipseShapeImpl.java,8\f\8f87bf9577f6112039c46a693e336452e020b0e0
 K
 src/drawers/RectDrawer.java,4\a\4a3c3197a0e9f12b0701ca3e1cf3da0b716f0e4a
 N
@@ -104,7 +100,5 @@ I
 src/utils/CubeEditor.java,b\6\b6b3010d031b379b805525c1b5f118c47a6504b2
 I
 src/builder/MyEditor.java,9\2\929efd5f06005b651783ef5ca7220a3433932303
-O
-src/builder/MenuBarCreator.java,4\0\40bdeca3e068fe32346f3aa0c60afed25850e3ec
 M
 src/drawers/StrokeSetter.java,6\f\6f4d688f9ecc7b7edad2e3e4b04a4513faf4a279

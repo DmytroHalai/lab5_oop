@@ -8,13 +8,16 @@ import java.awt.*;
 
 public class MyEditor extends JPanel {
     private transient ShapeEditor currentShape;
-
     public MyEditor() {
         currentShape = null;
     }
 
     public void start(ShapeEditor shape){
         currentShape = shape;
+    }
+
+    public ShapeEditor getCurrentShapeEditor() {
+        return currentShape;
     }
 
     public void onLBdown(Graphics2D g, int x, int y) {

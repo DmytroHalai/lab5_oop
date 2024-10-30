@@ -18,9 +18,25 @@ public class ShapeEditorFrame extends JFrame {
         setTitle("Редактор фігур");
         setSize(800, 600);
         setJMenuBar(createMenuBar());
-        add(editor);
+        add(editor, BorderLayout.CENTER);
         initMouseListeners();
+        initKeyBindings();
     }
+
+    private void initKeyBindings() {
+        InputMap inputMap = editor.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = editor.getActionMap();
+
+        inputMap.put(KeyStroke.getKeyStroke("ctrl Z"), "undo");
+        actionMap.put("undo", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                editor.getCurrentShapeEditor().undoLastShape();
+                editor.repaint();
+            }
+        });
+    }
+
 
     private void initMouseListeners() {
         editor.addMouseListener(new MouseAdapter() {
@@ -93,7 +109,7 @@ public class ShapeEditorFrame extends JFrame {
             setTitle(lineOO);
 
             changeButtonColor(e);
-        }, line);
+        }, lineOO);
 
         addToolBarButton(panel, "pic/cube.png", e -> {
             editor.start(new CubeEditor());
@@ -174,5 +190,4 @@ public class ShapeEditorFrame extends JFrame {
 
         lastPressedButton = sourceButton;
     }
-
 }

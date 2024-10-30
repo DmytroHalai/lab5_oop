@@ -6,14 +6,12 @@ public class CubeShape extends Shape implements LineDrawer, RectDrawer {
 
     @Override
     public void showLine(Graphics2D g, int x, int y, int x2, int y2, boolean isMark) {
-        g.setColor(Color.BLACK);
         new StrokeSetter(g, 3, isMark, 10);
         g.drawLine(x, y, x2, y2);
     }
 
     @Override
     public void showRect(Graphics2D g, int x, int y, int width, boolean isMark) {
-        g.setColor(Color.BLACK);
         new StrokeSetter(g, 3, isMark, 10);
         g.drawRect(x, y, width, width);
     }
