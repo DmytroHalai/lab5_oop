@@ -1,11 +1,10 @@
 package utils;
 
 import drawers.LineOOShape;
-import drawers.LineShape;
 
 import java.awt.*;
 
-public class LineOOEditor extends ShapeEditor{
+public class LineOOEditor extends ShapeEditor {
     private LineOOShape currentLine;
 
     @Override
@@ -31,8 +30,9 @@ public class LineOOEditor extends ShapeEditor{
             currentLine.set(x1, y1, x, y);
         }
     }
+
     @Override
-    public void onPaint(Graphics2D g){
+    public void onPaint(Graphics2D g) {
         super.onPaint(g);
         if (isDragging) currentLine.show(g, true);
     }

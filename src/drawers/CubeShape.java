@@ -2,6 +2,7 @@ package drawers;
 
 import java.awt.*;
 
+@SuppressWarnings("SuspiciousNameCombination")
 public class CubeShape extends Shape implements LineDrawer, RectDrawer {
 
     @Override

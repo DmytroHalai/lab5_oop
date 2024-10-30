@@ -1,18 +1,18 @@
 package builder;
 
-import drawers.Shape;
-import utils.*;
+import utils.ShapeEditor;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MyEditor extends JPanel {
     private transient ShapeEditor currentShape;
+
     public MyEditor() {
         currentShape = null;
     }
 
-    public void start(ShapeEditor shape){
+    public void start(ShapeEditor shape) {
         currentShape = shape;
     }
 
