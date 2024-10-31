@@ -1,6 +1,6 @@
 package builder;
 
-import utils.*;
+import drawers.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +13,7 @@ public class ShapeEditorFrame extends JFrame {
     private final MyEditor editor;
     private JButton lastPressedButton;
 
+
     public ShapeEditorFrame() {
         editor = new MyEditor();
         setTitle("Редактор фігур");
@@ -20,34 +21,18 @@ public class ShapeEditorFrame extends JFrame {
         setJMenuBar(createMenuBar());
         add(editor, BorderLayout.CENTER);
         initMouseListeners();
-        initKeyBindings();
     }
-
-    private void initKeyBindings() {
-        InputMap inputMap = editor.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        ActionMap actionMap = editor.getActionMap();
-
-        inputMap.put(KeyStroke.getKeyStroke("ctrl Z"), "undo");
-        actionMap.put("undo", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                editor.getCurrentShapeEditor().undoLastShape();
-                editor.repaint();
-            }
-        });
-    }
-
 
     private void initMouseListeners() {
         editor.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                editor.onLBdown((Graphics2D) editor.getGraphics(), e.getX(), e.getY());
+                editor.onLBdown(e.getX(), e.getY());
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                editor.onLBup((Graphics2D) editor.getGraphics());
+                editor.onLBup();
                 editor.repaint();
             }
         });
@@ -55,20 +40,13 @@ public class ShapeEditorFrame extends JFrame {
         editor.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                editor.onMouseMove((Graphics2D) editor.getGraphics(), e.getX(), e.getY());
+                editor.onMouseMove(e.getX(), e.getY());
                 editor.repaint();
             }
         });
     }
 
     private JMenuBar createMenuBar() {
-        String ellipse = "Еліпс";
-        String point = "Точка";
-        String rect = "Прямокутник";
-        String line = "Лінія";
-        String lineOO = "Лінія з еліпсами";
-        String cube = "Куб";
-
         JMenuBar menuBar = new JMenuBar();
         JMenu shapeMenu = new JMenu("Об'єкти");
         JMenu menu1 = new JMenu("Файл");
@@ -76,75 +54,82 @@ public class ShapeEditorFrame extends JFrame {
         JToolBar toolBar = new JToolBar();
         JPanel panel = new JPanel();
 
+        String ellipse = "Еліпс";
+        String point = "Точка";
+        String rect = "Прямокутник";
+        String line = "Лінія";
+        String lineOO = "Лінія з еліпсами";
+        String cube = "Куб";
+
         addToolBarButton(panel, "pic/ellipse.png", e -> {
-            editor.start(new EllipseEditor());
+            editor.setCurrentShape(new EllipseShape());
             setTitle(ellipse);
 
             changeButtonColor(e);
         }, ellipse);
 
         addToolBarButton(panel, "pic/rect.png", e -> {
-            editor.start(new RectEditor());
+            editor.setCurrentShape(new RectShape());
             setTitle(rect);
 
             changeButtonColor(e);
         }, rect);
 
         addToolBarButton(panel, "pic/line.png", e -> {
-            editor.start(new LineEditor());
+            editor.setCurrentShape(new LineShape());
             setTitle(line);
 
             changeButtonColor(e);
         }, line);
 
         addToolBarButton(panel, "pic/point.png", e -> {
-            editor.start(new PointEditor());
+            editor.setCurrentShape(new PointShape());
             setTitle(point);
 
             changeButtonColor(e);
         }, point);
 
         addToolBarButton(panel, "pic/lineOO.png", e -> {
-            editor.start(new LineOOEditor());
+            editor.setCurrentShape(new LineOOShape());
             setTitle(lineOO);
 
             changeButtonColor(e);
         }, lineOO);
 
         addToolBarButton(panel, "pic/cube.png", e -> {
-            editor.start(new CubeEditor());
+            editor.setCurrentShape(new CubeShape());
             setTitle(cube);
 
             changeButtonColor(e);
         }, cube);
 
         addMenuItem(shapeMenu, point, e -> {
-            editor.start(new PointEditor());
+            editor.setCurrentShape(new PointShape());
             setTitle(point);
         });
 
         addMenuItem(shapeMenu, line, e -> {
-            editor.start(new LineEditor());
+            editor.setCurrentShape(new LineShape());
             setTitle(line);
         });
 
         addMenuItem(shapeMenu, rect, e -> {
-            editor.start(new RectEditor());
+            editor.setCurrentShape(new RectShape());
             setTitle(rect);
         });
 
         addMenuItem(shapeMenu, ellipse, e -> {
-            editor.start(new EllipseEditor());
+            editor.setCurrentShape(new EllipseShape());
             setTitle(ellipse);
         });
 
         addMenuItem(shapeMenu, lineOO, e -> {
-            editor.start(new LineOOEditor());
+            editor.setCurrentShape(new LineOOShape());
             setTitle(lineOO);
         });
 
         addMenuItem(shapeMenu, cube, e -> {
-            editor.start(new CubeEditor());
+            editor.setCurrentShape(new CubeShape());
             setTitle(cube);
         });
 
@@ -181,13 +166,10 @@ public class ShapeEditorFrame extends JFrame {
 
     private void changeButtonColor(ActionEvent e) {
         JButton sourceButton = (JButton) e.getSource();
-
         if (lastPressedButton != null && lastPressedButton != sourceButton) {
             lastPressedButton.setBackground(Color.WHITE);
         }
-
         sourceButton.setBackground(Color.PINK);
-
         lastPressedButton = sourceButton;
     }
 }

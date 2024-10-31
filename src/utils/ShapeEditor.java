@@ -6,49 +6,42 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShapeEditor implements Editor {
-    protected static final List<Shape> shapes = new ArrayList<>(104);
+public class ShapeEditor {
+    protected final List<Shape> shapes = new ArrayList<>();
     protected boolean isDragging = false;
-    protected int x1;
-    protected int y1;
-    protected int x2;
-    protected int y2;
+    protected Shape currentShape;
 
-    @Override
-    public void onLBdown(Graphics2D g, int x, int y) {
+    public void onLBdown(int x, int y) {
         isDragging = true;
-        x1 = x;
-        y1 = y;
-    }
-
-    @Override
-    public void onLBup(Graphics2D g) {
-        isDragging = false;
-    }
-
-    @Override
-    public void onMouseMove(Graphics2D g, int x, int y) {
-        if (isDragging) {
-            x2 = x;
-            y2 = y;
+        if (currentShape != null) {
+            currentShape.set(x, y, x, y);
         }
     }
 
-    @Override
+    public void onLBup() {
+        isDragging = false;
+        if (currentShape != null) {
+            shapes.add(currentShape);
+            currentShape = null;
+        }
+    }
+
+    public void onMouseMove(int x, int y) {
+        if (isDragging && currentShape != null) {
+            currentShape.set(currentShape.xs1, currentShape.ys1, x, y);
+        }
+    }
+
     public void onPaint(Graphics2D g) {
         for (Shape shape : shapes) {
             shape.show(g, false);
         }
-    }
-
-    public void addShape(Shape shape) {
-        shapes.add(shape);
-    }
-
-    public void undoLastShape() {
-        if (!shapes.isEmpty()) {
-            shapes.removeLast();
+        if (currentShape != null) {
+            currentShape.show(g, true);
         }
     }
 
+    public void setCurrentShape(Shape shape) {
+        this.currentShape = shape;
+    }
 }
