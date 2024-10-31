@@ -13,7 +13,6 @@ public class ShapeEditorFrame extends JFrame {
     private final MyEditor editor;
     private JButton lastPressedButton;
 
-
     public ShapeEditorFrame() {
         editor = new MyEditor();
         setTitle("Редактор фігур");

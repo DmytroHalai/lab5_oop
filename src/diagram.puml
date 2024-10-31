@@ -1,76 +1,20 @@
 @startuml
 
 package utils {
-    interface Editor {
-        +void onLBdown(Graphics g, int x, int y)
-        +void onLBup(Graphics g)
-        +void onMouseMove(Graphics g, int x, int y)
-        +void onPaint(Graphics g)
-    }
-
-    class ShapeEditor implements Editor{
+    class ShapeEditor{
         #boolean isDragging
-        #int x1, y1, x2, y2
         #List<Shape> shapes
-        +onLBdown(Graphics g, int x, int y)
-        +onLBup(Graphics g)
-        +onMouseMove(Graphics g, int x, int y)
-        +onPaint(Graphics g)
-        +addShape(Shape shape)
-    }
-
-    class LineOOEditor extends ShapeEditor {
-        -LineOOShape currentEllipse
-        +onLBdown(Graphics g, int x, int y)
-        +onLBup(Graphics g)
-        +onMouseMove(Graphics g, int x, int y)
-        +onPaint(Graphics g)
-    }
-
-    class CubeEditor extends ShapeEditor {
-        -CubeShape currentEllipse
-        +onLBdown(Graphics g, int x, int y)
-        +onLBup(Graphics g)
-        +onMouseMove(Graphics g, int x, int y)
-        +onPaint(Graphics g)
-    }
-
-    class EllipseEditor extends ShapeEditor {
-        -EllipseShape currentEllipse
-        +onLBdown(Graphics g, int x, int y)
-        +onLBup(Graphics g)
-        +onMouseMove(Graphics g, int x, int y)
-        +onPaint(Graphics g)
-    }
-
-    class LineEditor extends ShapeEditor {
-        -LineShape currentLine
-        +onLBdown(Graphics g, int x, int y)
-        +onLBup(Graphics g)
-        +onMouseMove(Graphics g, int x, int y)
-        +onPaint(Graphics g)
-    }
-
-    class PointEditor extends ShapeEditor {
-        -PointShape currentPoint
-        +onLBdown(Graphics g, int x, int y)
-        +onLBup(Graphics g)
-        +onMouseMove(Graphics g, int x, int y)
-
-    }
-
-    class RectEditor extends ShapeEditor {
-        -RectShape currentRect
-        +onLBdown(Graphics g, int x, int y)
-        +onLBup(Graphics g)
-        +onMouseMove(Graphics g, int x, int y)
-        +onPaint(Graphics g)
+        +onLBdown(int x, int y)
+        +onLBup()
+        +onMouseMove(int x, int y)
+        +onPaint()
+        +void setCurrentShape(Shape shape)
     }
 }
 
 package builder {
     class ShapeEditorFrame {
-        -ShapeObjectsEditor editor
+        -MyEditor editor
         -JButton lastPressedButton
         +ShapeEditorFrame()
         -void initMouseListeners()
@@ -82,14 +26,13 @@ package builder {
     }
 
     class MyEditor {
-        -ShapeEditor currentShape
-        +start(ShapeEditor shape)
+        -ShapeEditor shapeEditor
+        +MyEditor()
+        +void setCurrentShape(Shape shape)
         +onLBdown(Graphics g, int x, int y)
         +onLBup(Graphics g)
         +onMouseMove(Graphics g, int x, int y)
         #void paintComponent(Graphics g)
-        +onPaint(Graphics g)
-        -boolean isNotEmpty(ShapeEditor el)
     }
 
 }
@@ -160,12 +103,5 @@ class Main {
 Main --> MyEditor
 ShapeEditorFrame --> MyEditor
 MyEditor --> ShapeEditor
-EllipseEditor --> EllipseShape
-LineEditor --> LineShape
-PointEditor --> PointShape
-RectEditor --> RectShape
-LineOOShape ---|> LineDrawer
-CubeShape --> RectDrawer
-LineOOShape ---|> EllipseDrawer
-
+Shape <-- ShapeEditor
 @enduml
