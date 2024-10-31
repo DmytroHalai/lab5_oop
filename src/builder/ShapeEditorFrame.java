@@ -20,6 +20,7 @@ public class ShapeEditorFrame extends JFrame {
         setJMenuBar(createMenuBar());
         add(editor, BorderLayout.CENTER);
         initMouseListeners();
+        initKeyBindings();
     }
 
     private void initMouseListeners() {
@@ -170,5 +171,19 @@ public class ShapeEditorFrame extends JFrame {
         }
         sourceButton.setBackground(Color.PINK);
         lastPressedButton = sourceButton;
+    }
+
+    private void initKeyBindings() {
+        InputMap inputMap = editor.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = editor.getActionMap();
+
+        inputMap.put(KeyStroke.getKeyStroke("ctrl Z"), "undo");
+        actionMap.put("undo", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                editor.getCurrentShapeEditor().undoLastShape();
+                editor.repaint();
+            }
+        });
     }
 }

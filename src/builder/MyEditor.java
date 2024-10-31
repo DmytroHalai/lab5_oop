@@ -17,6 +17,10 @@ public class MyEditor extends JPanel {
         shapeEditor.setCurrentShape(shape);
     }
 
+    public ShapeEditor getCurrentShapeEditor() {
+        return shapeEditor;
+    }
+
     public void onLBdown(int x, int y) {
         shapeEditor.onLBdown(x, y);
     }

@@ -77,11 +77,11 @@ package drawers {
     }
 
     interface EllipseDrawer {
-        void showEl(Graphics2D g, int x, int y, int width, int height, boolean isMark)
+        +void showEl(Graphics2D g, int x, int y, int width, int height, boolean isMark)
     }
 
     interface LineDrawer {
-        void showLine(Graphics2D g, int x, int y, int x2, int y2, boolean isMark)
+        +void showLine(Graphics2D g, int x, int y, int x2, int y2, boolean isMark)
     }
 
     class LineOOShape extends Shape implements EllipseDrawer, LineDrawer {
@@ -92,7 +92,7 @@ package drawers {
     }
 
     interface RectDrawer {
-        void showRect(Graphics2D g, int x1, int y1, int width, boolean isMark)
+        +void showRect(Graphics2D g, int x1, int y1, int width, boolean isMark)
     }
 }
 

@@ -44,4 +44,10 @@ public class ShapeEditor {
     public void setCurrentShape(Shape shape) {
         this.currentShape = shape;
     }
+
+    public void undoLastShape() {
+        if (!shapes.isEmpty()) {
+            shapes.removeLast();
+        }
+    }
 }
