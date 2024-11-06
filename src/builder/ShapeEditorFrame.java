@@ -14,7 +14,7 @@ public class ShapeEditorFrame extends JFrame {
     private JButton lastPressedButton;
 
     public ShapeEditorFrame() {
-        editor = new MyEditor();
+        editor = new MyEditor(this);
         setTitle("Редактор фігур");
         setSize(800, 600);
         setJMenuBar(createMenuBar());
@@ -53,6 +53,8 @@ public class ShapeEditorFrame extends JFrame {
         JMenu menu2 = new JMenu("Довідка");
         JToolBar toolBar = new JToolBar();
         JPanel panel = new JPanel();
+        JMenuItem showTableItem = new JMenuItem("Показати таблицю");
+        showTableItem.addActionListener(e -> editor.showTable());
 
         String ellipse = "Еліпс";
         String point = "Точка";
@@ -134,6 +136,7 @@ public class ShapeEditorFrame extends JFrame {
         });
 
         toolBar.add(panel);
+        menu1.add(showTableItem);
         menuBar.add(menu1);
         menuBar.add(shapeMenu);
         menuBar.add(menu2);

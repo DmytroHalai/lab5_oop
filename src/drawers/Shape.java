@@ -15,5 +15,23 @@ public abstract class Shape {
         ys2 = y2;
     }
 
-    public abstract void show(Graphics2D g, boolean isMark);
+    public abstract void show(Graphics2D g, boolean isMark, boolean isHighLighted);
+
+    public int getXs1() {
+        return xs1;
+    }
+
+    public int getYs1() {
+        return ys1;
+    }
+
+    public int getXs2() {
+        return xs2;
+    }
+
+    public int getYs2() {
+        return ys2;
+    }
+
+    public abstract String getType();
 }

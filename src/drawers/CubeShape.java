@@ -6,32 +6,34 @@ import java.awt.*;
 public class CubeShape extends Shape implements LineDrawer, RectDrawer {
 
     @Override
-    public void showLine(Graphics2D g, int x, int y, int x2, int y2, boolean isMark) {
+    public void showLine(Graphics2D g, int x, int y, int x2, int y2, boolean isMark, boolean isHighlight) {
+        g.setColor(isHighlight ? Color.RED : Color.BLACK);
         new StrokeSetter(g, 3, isMark, 10);
         g.drawLine(x, y, x2, y2);
     }
 
     @Override
-    public void showRect(Graphics2D g, int x, int y, int width, boolean isMark) {
+    public void showRect(Graphics2D g, int x, int y, int width, boolean isMark, boolean isHighlight) {
+        g.setColor(isHighlight ? Color.RED : Color.BLACK);
         new StrokeSetter(g, 3, isMark, 10);
         g.drawRect(x, y, width, width);
     }
 
-    private void drawRects(Graphics2D g, boolean isMark) {
+    private void drawRects(Graphics2D g, boolean isMark, boolean isHighlight) {
         int sideLength = (int) findSideLength(xs1, ys1, xs2, ys2);
         int[] secondCoords = findSecondRectCoord(xs2, ys2, sideLength);
-        showRect(g, xs1, ys1, sideLength, isMark);
-        showRect(g, secondCoords[0], secondCoords[1], sideLength, isMark);
+        showRect(g, xs1, ys1, sideLength, isMark, isHighlight);
+        showRect(g, secondCoords[0], secondCoords[1], sideLength, isMark, isHighlight);
     }
 
-    private void drawLines(Graphics2D g, boolean isMark) {
+    private void drawLines(Graphics2D g, boolean isMark, boolean isHighlight) {
         int sideLength = (int) findSideLength(xs1, ys1, xs2, ys2);
         int[] secondCoords = findSecondRectCoord(xs2, ys2, sideLength);
 
-        showLine(g, xs1, ys1, secondCoords[0], secondCoords[1], isMark);
-        showLine(g, xs1 + sideLength, ys1, secondCoords[0] + sideLength, secondCoords[1], isMark);
-        showLine(g, xs1, ys1 + sideLength, secondCoords[0], secondCoords[1] + sideLength, isMark);
-        showLine(g, xs1 + sideLength, ys1 + sideLength, secondCoords[0] + sideLength, secondCoords[1] + sideLength, isMark);
+        showLine(g, xs1, ys1, secondCoords[0], secondCoords[1], isMark, isHighlight);
+        showLine(g, xs1 + sideLength, ys1, secondCoords[0] + sideLength, secondCoords[1], isMark, isHighlight);
+        showLine(g, xs1, ys1 + sideLength, secondCoords[0], secondCoords[1] + sideLength, isMark, isHighlight);
+        showLine(g, xs1 + sideLength, ys1 + sideLength, secondCoords[0] + sideLength, secondCoords[1] + sideLength, isMark, isHighlight);
     }
 
     private double calcVectorLength(int x, int y, int x2, int y2) {
@@ -51,8 +53,13 @@ public class CubeShape extends Shape implements LineDrawer, RectDrawer {
     }
 
     @Override
-    public void show(Graphics2D g, boolean isMark) {
-        drawRects(g, isMark);
-        drawLines(g, isMark);
+    public void show(Graphics2D g, boolean isMark, boolean isHighlight) {
+        drawRects(g, isMark, isHighlight);
+        drawLines(g, isMark, isHighlight);
+    }
+
+    @Override
+    public String getType() {
+        return "Куб";
     }
 }

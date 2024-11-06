@@ -1,15 +1,23 @@
 package utils;
 
+import builder.MyEditor;
 import drawers.Shape;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ShapeEditor {
     protected final List<Shape> shapes = new ArrayList<>();
+    private final MyTable shapeTable;
     protected boolean isDragging = false;
     protected Shape currentShape;
+    private Shape highlightedShape;
+
+    public ShapeEditor(MyEditor editor, Frame owner) {
+        shapeTable = new MyTable(owner, editor);
+    }
 
     public void onLBdown(int x, int y) {
         isDragging = true;
@@ -22,6 +30,7 @@ public class ShapeEditor {
         isDragging = false;
         if (currentShape != null) {
             shapes.add(currentShape);
+            updateTable();
             currentShape = null;
         }
     }
@@ -34,10 +43,10 @@ public class ShapeEditor {
 
     public void onPaint(Graphics2D g) {
         for (Shape shape : shapes) {
-            shape.show(g, false);
+            shape.show(g, false, shape == highlightedShape);
         }
         if (currentShape != null) {
-            currentShape.show(g, true);
+            currentShape.show(g, true, true);
         }
     }
 
@@ -48,6 +57,25 @@ public class ShapeEditor {
     public void undoLastShape() {
         if (!shapes.isEmpty()) {
             shapes.removeLast();
+            updateTable();
         }
+    }
+
+    public void highlightShape(Shape shape) {
+        if (this.highlightedShape != shape) {
+            this.highlightedShape = shape;
+        }
+    }
+
+    private void updateTable() {
+        shapeTable.updateTable(shapes);
+    }
+
+    public void showTable() {
+        shapeTable.setVisible(true);
+    }
+
+    public List<Shape> getShapes() {
+        return shapes;
     }
 }

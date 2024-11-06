@@ -9,8 +9,8 @@ import java.awt.*;
 public class MyEditor extends JPanel {
     private final transient ShapeEditor shapesEditor;
 
-    public MyEditor() {
-        shapesEditor = new ShapeEditor();
+    public MyEditor(Frame owner) {
+        shapesEditor = new ShapeEditor(this, owner);
     }
 
     public void setCurrentShape(Shape shape) {
@@ -40,5 +40,14 @@ public class MyEditor extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         shapesEditor.onPaint(g2d);
+    }
+
+    public void showTable() {
+        shapesEditor.showTable();
+    }
+
+    public void highlightShape(Shape shape) {
+        shapesEditor.highlightShape(shape);
+        repaint();
     }
 }
