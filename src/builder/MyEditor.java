@@ -7,31 +7,31 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MyEditor extends JPanel {
-    private final transient ShapeEditor shapeEditor;
+    private final transient ShapeEditor shapesEditor;
 
     public MyEditor() {
-        shapeEditor = new ShapeEditor();
+        shapesEditor = new ShapeEditor();
     }
 
     public void setCurrentShape(Shape shape) {
-        shapeEditor.setCurrentShape(shape);
+        shapesEditor.setCurrentShape(shape);
     }
 
     public ShapeEditor getCurrentShapeEditor() {
-        return shapeEditor;
+        return shapesEditor;
     }
 
     public void onLBdown(int x, int y) {
-        shapeEditor.onLBdown(x, y);
+        shapesEditor.onLBdown(x, y);
     }
 
     public void onLBup() {
-        shapeEditor.onLBup();
+        shapesEditor.onLBup();
         repaint();
     }
 
     public void onMouseMove(int x, int y) {
-        shapeEditor.onMouseMove(x, y);
+        shapesEditor.onMouseMove(x, y);
         repaint();
     }
 
@@ -39,6 +39,6 @@ public class MyEditor extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        shapeEditor.onPaint(g2d);
+        shapesEditor.onPaint(g2d);
     }
 }
