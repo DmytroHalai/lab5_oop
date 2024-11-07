@@ -32,7 +32,11 @@ public class ShapeEditorFrame extends JFrame {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                editor.onLBup();
+                try {
+                    editor.onLBup();
+                } catch (InstantiationException | IllegalAccessException ex) {
+                    throw new RuntimeException(ex);
+                }
                 editor.repaint();
             }
         });
@@ -54,7 +58,6 @@ public class ShapeEditorFrame extends JFrame {
         JToolBar toolBar = new JToolBar();
         JPanel panel = new JPanel();
         JMenuItem showTableItem = new JMenuItem("Показати таблицю");
-        showTableItem.addActionListener(e -> editor.showTable());
 
         String ellipse = "Еліпс";
         String point = "Точка";
@@ -62,6 +65,8 @@ public class ShapeEditorFrame extends JFrame {
         String line = "Лінія";
         String lineOO = "Лінія з еліпсами";
         String cube = "Куб";
+
+        showTableItem.addActionListener(e -> editor.showTable());
 
         addToolBarButton(panel, "pic/ellipse.png", e -> {
             editor.setCurrentShape(new EllipseShape());

@@ -3,7 +3,6 @@ package drawers;
 import java.awt.*;
 
 public class EllipseShape extends Shape {
-    int i = 0;
     @Override
     public void show(Graphics2D g, boolean isMark, boolean isHighlight) {
         int x = Math.min(xs1, xs2);
@@ -11,9 +10,8 @@ public class EllipseShape extends Shape {
         int width = Math.abs(xs2 - xs1);
         int height = Math.abs(ys2 - ys1);
 
-        g.setColor(isHighlight ? Color.BLACK : Color.RED);
+        g.setColor(isHighlight ? Color.RED : Color.BLACK);
         new StrokeSetter(g, 3, isMark, 10);
-        g.setColor(Color.BLACK);
         g.drawOval(x, y, width, height);
     }
 

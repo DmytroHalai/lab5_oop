@@ -25,7 +25,7 @@ public class MyEditor extends JPanel {
         shapesEditor.onLBdown(x, y);
     }
 
-    public void onLBup() {
+    public void onLBup() throws InstantiationException, IllegalAccessException {
         shapesEditor.onLBup();
         repaint();
     }

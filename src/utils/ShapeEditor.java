@@ -26,12 +26,13 @@ public class ShapeEditor {
         }
     }
 
-    public void onLBup() {
+    public void onLBup() throws InstantiationException, IllegalAccessException {
         isDragging = false;
+        Shape temp = currentShape.getClass().newInstance();
         if (currentShape != null) {
             shapes.add(currentShape);
             updateTable();
-            currentShape = null;
+            currentShape = temp;
         }
     }
 
@@ -45,7 +46,7 @@ public class ShapeEditor {
         for (Shape shape : shapes) {
             shape.show(g, false, shape == highlightedShape);
         }
-        if (currentShape != null) {
+        if (isDragging) {
             currentShape.show(g, true, true);
         }
     }
