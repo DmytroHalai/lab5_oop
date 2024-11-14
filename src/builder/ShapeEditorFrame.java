@@ -10,7 +10,7 @@ public class ShapeEditorFrame extends JFrame {
     private final MainEditor editor;
 
     public ShapeEditorFrame() {
-        editor = new MainEditor(this);
+        editor = MainEditor.getInstance(this);
         ShapeToolBar shapeToolBar = new ShapeToolBar(editor);
 
         setTitle("Редактор фігур");

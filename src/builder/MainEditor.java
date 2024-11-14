@@ -8,9 +8,17 @@ import java.awt.*;
 
 public class MainEditor extends JPanel {
     private final transient ShapeEditor shapesEditor;
+    private static MainEditor instance;
 
-    public MainEditor(Frame owner) {
+    private MainEditor(Frame owner) {
         shapesEditor = new ShapeEditor(this, owner);
+    }
+
+    public static MainEditor getInstance(Frame owner) {
+        if (instance == null) {
+            instance = new MainEditor(owner);
+        }
+        return instance;
     }
 
     public void setCurrentShape(Shape shape) {
