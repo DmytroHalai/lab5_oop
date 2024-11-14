@@ -84,8 +84,6 @@ K
 src/drawers/LineDrawer.java,9\5\95c569071dfcf7b4031ea3e2ad24c0cc59ffdb8b
 J
 src/drawers/CubeShape.java,f\3\f359710e76e9dd273d784a859cf8b3b413027a85
-I
-src/builder/MyEditor.java,9\2\929efd5f06005b651783ef5ca7220a3433932303
 M
 src/drawers/StrokeSetter.java,6\f\6f4d688f9ecc7b7edad2e3e4b04a4513faf4a279
 w
@@ -138,10 +136,6 @@ w
 G.idea/sonarlint/issuestore/e/a/ea5b3f7f1a725fdff5fab6ee3763af9040ae22d3,f\1\f1d9398c2ebecb4e873c5a65f8bdee3767ae2056
 w
 G.idea/sonarlint/issuestore/1/b/1bc61f81ef974310ef4e27a5245c216c8debf804,f\7\f7ffeececb0d60dbb0c8ff334dea0da099581bf4
-Å
-Q.idea/sonarlint/securityhotspotstore/9/2/929efd5f06005b651783ef5ca7220a3433932303,d\9\d9fab94931f6b265bc3ec78440202ec9a3f2d835
-F
-src/utils/MyTable.java,9\b\9b028f3b731e0b94b3834d4d31eb24c013313de6
 K
 src/builder/MainEditor.java,4\0\407bcc12432be2505d9ee998453d7bc4dccbcfb1
 M
@@ -160,3 +154,7 @@ w
 G.idea/sonarlint/issuestore/4/0/407bcc12432be2505d9ee998453d7bc4dccbcfb1,b\8\b84a842caafc843b6ea10149fa831fb4ad0e83b2
 Å
 Q.idea/sonarlint/securityhotspotstore/7/c/7c606301d0f13f9854a66cd0dc9ab21fb8eba3f5,b\f\bf94bef078ac71ce72cb513ef3e53a80d7b54382
+K
+src/utils/ShapeFactory.java,7\f\7f9461a8c660e2dbeb6722101b954aad385310a8
+8
+111.json,b\4\b4cf2e62918bb003711825a045fea30979474564

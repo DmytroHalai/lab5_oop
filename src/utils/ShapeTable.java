@@ -14,15 +14,18 @@ public class ShapeTable extends JDialog {
     private final DefaultTableModel tableModel = new DefaultTableModel(new String[]{"Назва", "x1", "y1", "x2", "y2"}, 0);
     private final JTable myJTable = new JTable(tableModel);
     private final JFileChooser myJFileChooser = new JFileChooser(new File("."));
-
     public ShapeTable(Frame owner, MainEditor editor) {
         super(owner, "Список об'єктів", false);
         setLayout(new BorderLayout());
+
         JPanel panel = new JPanel(new java.awt.GridLayout(1, 2));
-        JButton jbtSave = new JButton("Save Table");
+
+        JButton jbtSave = new JButton("Зберегти");
+        JButton jbtLoad = new JButton("Завантажити");
+
         panel.add(jbtSave);
-        JButton jbtLoad = new JButton("Load Table");
         panel.add(jbtLoad);
+
         add(panel, BorderLayout.SOUTH);
 
         myJTable.getSelectionModel().addListSelectionListener(e -> {
@@ -35,7 +38,11 @@ public class ShapeTable extends JDialog {
 
         jbtSave.addActionListener(e -> saveTable());
 
-        jbtLoad.addActionListener(e -> loadTable());
+        jbtLoad.addActionListener(e -> {
+            loadTable();
+            editor.getCurrentShapeEditor().updateShapesArrayFromTable(tableModel);
+            editor.repaintShapes();
+        });
 
         JScrollPane scrollPane = new JScrollPane(myJTable);
         add(scrollPane, BorderLayout.CENTER);
@@ -86,6 +93,7 @@ public class ShapeTable extends JDialog {
         if (myJFileChooser.showOpenDialog(this) ==
                 JFileChooser.APPROVE_OPTION)
             loadTable(myJFileChooser.getSelectedFile());
+
     }
 
     private void loadTable(File file) {

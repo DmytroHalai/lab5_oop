@@ -27,12 +27,12 @@ public class MainEditor extends JPanel {
 
     public void onLBup() throws InstantiationException, IllegalAccessException {
         shapesEditor.onLBup();
-        repaint();
+        repaintShapes();
     }
 
     public void onMouseMove(int x, int y) {
         shapesEditor.onMouseMove(x, y);
-        repaint();
+        repaintShapes();
     }
 
     @Override
@@ -48,6 +48,10 @@ public class MainEditor extends JPanel {
 
     public void highlightShape(Shape shape) {
         shapesEditor.highlightShape(shape);
+        repaintShapes();
+    }
+
+    public void repaintShapes(){
         repaint();
     }
 

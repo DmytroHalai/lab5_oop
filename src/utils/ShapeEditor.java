@@ -3,9 +3,11 @@ package utils;
 import builder.MainEditor;
 import drawers.Shape;
 
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 
 public class ShapeEditor {
@@ -85,5 +87,27 @@ public class ShapeEditor {
             shapes.clear();
             updateTable();
         }
+    }
+
+    public void updateShapesArrayFromTable(DefaultTableModel table){
+        shapes.clear();
+        int columnCount = table.getColumnCount();
+        Vector<Vector> dataVector = table.getDataVector();
+        for (int i = 0; i < columnCount; i++){
+            createShapeFromRow(dataVector.get(i));
+        }
+        updateTable();
+    }
+
+    private void createShapeFromRow(Vector row) {
+        String name = (String) row.get(0);
+        int x1 = (int) row.get(1);
+        int y1 = (int) row.get(2);
+        int x2 = (int) row.get(3);
+        int y2 = (int) row.get(4);
+
+        Shape shape = ShapeFactory.createShape(name);
+        shape.set(x1, y1, x2, y2);
+        shapes.add(shape);
     }
 }
