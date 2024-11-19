@@ -63,4 +63,13 @@ public class MainEditor extends JPanel {
         repaint();
     }
 
+    public Dimension getCanvasSize() {
+        return this.getSize();
+    }
+
+    public void renderScene(Graphics2D g2d) {
+        shapesEditor.onPaint(g2d);
+    }
+
+
 }

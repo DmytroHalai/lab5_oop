@@ -5,9 +5,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class ShapeEditorFrame extends JFrame {
     private final MainEditor editor;
+    private final JFileChooser fileChooser = new JFileChooser(new File("."));
 
     public ShapeEditorFrame() {
         editor = MainEditor.getInstance(this);
@@ -39,10 +43,37 @@ public class ShapeEditorFrame extends JFrame {
         });
         fileMenu.add(deleteAllShapes);
 
+        JMenuItem saveSceneItem = new JMenuItem("Зберегти сцену як PNG");
+        saveSceneItem.addActionListener(e -> saveSceneAsImage());
+        fileMenu.add(saveSceneItem);
+
         menuBar.add(fileMenu);
         menuBar.add(shapeMenu);
 
         return menuBar;
+    }
+
+    private void saveSceneAsImage() {
+        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            if (!file.getName().endsWith(".png")) {
+                file = new File(file.getAbsolutePath() + ".png");
+            }
+            try {
+                Dimension size = editor.getCanvasSize();
+                BufferedImage image = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2d = image.createGraphics();
+
+                editor.renderScene(g2d);
+                g2d.setBackground(Color.WHITE);
+                g2d.dispose();
+
+                javax.imageio.ImageIO.write(image, "png", file);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Помилка при збереженні сцени");
+            }
+        }
     }
 
     private void initMouseListeners() {

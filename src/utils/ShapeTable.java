@@ -2,11 +2,13 @@ package utils;
 
 import builder.MainEditor;
 import drawers.Shape;
+import org.w3c.dom.ls.LSOutput;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.*;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
@@ -63,25 +65,6 @@ public class ShapeTable extends JDialog {
         }
     }
 
-    private void saveTable() {
-        if (myJFileChooser.showSaveDialog(this) ==
-                JFileChooser.APPROVE_OPTION) {
-            saveTable(myJFileChooser.getSelectedFile());
-        }
-    }
-
-    private void saveTable(File file) {
-        try {
-            ObjectOutputStream out = new ObjectOutputStream(
-                    new FileOutputStream(file));
-            out.writeObject(tableModel.getDataVector());
-            out.writeObject(getColumnNames());
-            out.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
     private Vector<String> getColumnNames() {
         Vector<String> columnNames = new Vector<>();
         for (int i = 0; i < myJTable.getColumnCount(); i++)
@@ -89,22 +72,66 @@ public class ShapeTable extends JDialog {
         return columnNames;
     }
 
-    private void loadTable() {
-        if (myJFileChooser.showOpenDialog(this) ==
-                JFileChooser.APPROVE_OPTION)
-            loadTable(myJFileChooser.getSelectedFile());
 
+    private void saveTable() {
+        if (myJFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = myJFileChooser.getSelectedFile();
+            if (!selectedFile.getName().endsWith(".txt")) {
+                selectedFile = new File(selectedFile.getAbsolutePath() + ".txt");
+            }
+            saveTable(selectedFile);
+        }
     }
 
-    private void loadTable(File file) {
-        try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-            Vector rowData = (Vector) in.readObject();
-            Vector columnNames = (Vector) in.readObject();
-            tableModel.setDataVector(rowData, columnNames);
-            in.close();
-        } catch (Exception ex) {
+    private void saveTable(File file) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            // Записуємо заголовки таблиці
+            for (int i = 0; i < myJTable.getColumnCount(); i++) {
+                writer.write(myJTable.getColumnName(i));
+                if (i < myJTable.getColumnCount() - 1) {
+                    writer.write("\t");
+                }
+            }
+            writer.newLine();
+
+            // Записуємо дані таблиці
+            for (int i = 0; i < tableModel.getRowCount(); i++) {
+                for (int j = 0; j < tableModel.getColumnCount(); j++) {
+                    writer.write(tableModel.getValueAt(i, j).toString());
+                    if (j < tableModel.getColumnCount() - 1) {
+                        writer.write("\t");
+                    }
+                }
+                writer.newLine();
+            }
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
+
+    private void loadTable() {
+        if (myJFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            loadTable(myJFileChooser.getSelectedFile());
+        }
+    }
+
+    private void loadTable(File file) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String headerLine = reader.readLine();
+            if (headerLine == null) {
+                throw new IOException("Файл порожній або пошкоджений");
+            }
+
+            tableModel.setRowCount(0);
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] values = line.split("\t");
+                tableModel.addRow(values);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }
