@@ -2,15 +2,12 @@ package utils;
 
 import builder.MainEditor;
 import drawers.Shape;
-import org.w3c.dom.ls.LSOutput;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.*;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Vector;
 
 public class ShapeTable extends JDialog {
     private final DefaultTableModel tableModel = new DefaultTableModel(new String[]{"Назва", "x1", "y1", "x2", "y2"}, 0);
@@ -38,13 +35,34 @@ public class ShapeTable extends JDialog {
             }
         });
 
-        jbtSave.addActionListener(e -> saveTable());
+        JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem deleteMenuItem = new JMenuItem("Видалити");
 
-        jbtLoad.addActionListener(e -> {
-            loadTable();
-            editor.getCurrentShapeEditor().updateShapesArrayFromTable(tableModel);
-            editor.repaintShapes();
+        deleteMenuItem.addActionListener(e -> {
+            int row = myJTable.getSelectedRow();
+            if (row >= 0) {
+                deleteRow(row, editor);
+            }
         });
+
+        popupMenu.add(deleteMenuItem);
+
+        myJTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    int row = myJTable.rowAtPoint(e.getPoint());
+                    if (row >= 0 && row < myJTable.getRowCount()) {
+                        myJTable.setRowSelectionInterval(row, row);
+                        popupMenu.show(myJTable, e.getX(), e.getY());
+                    }
+                }
+            }
+        });
+
+        jbtSave.addActionListener(e -> saveTable(myJFileChooser));
+
+        jbtLoad.addActionListener(e -> loadAndRepaint(editor, myJFileChooser));
 
         JScrollPane scrollPane = new JScrollPane(myJTable);
         add(scrollPane, BorderLayout.CENTER);
@@ -53,6 +71,13 @@ public class ShapeTable extends JDialog {
         setLocationRelativeTo(owner);
     }
 
+    private void deleteRow(int row, MainEditor editor) {
+        if (row >= 0 && row < tableModel.getRowCount()) {
+            tableModel.removeRow(row);
+            editor.getCurrentShapeEditor().removeShape(row);
+            editor.repaintShapes();
+        }
+    }
 
     public void addRow(String name, int x1, int y1, int x2, int y2) {
         tableModel.addRow(new Object[]{name, x1, y1, x2, y2});
@@ -65,17 +90,10 @@ public class ShapeTable extends JDialog {
         }
     }
 
-    private Vector<String> getColumnNames() {
-        Vector<String> columnNames = new Vector<>();
-        for (int i = 0; i < myJTable.getColumnCount(); i++)
-            columnNames.add(myJTable.getColumnName(i));
-        return columnNames;
-    }
 
-
-    private void saveTable() {
-        if (myJFileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = myJFileChooser.getSelectedFile();
+    public void saveTable(JFileChooser owner) {
+        if (owner.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = owner.getSelectedFile();
             if (!selectedFile.getName().endsWith(".txt")) {
                 selectedFile = new File(selectedFile.getAbsolutePath() + ".txt");
             }
@@ -85,7 +103,6 @@ public class ShapeTable extends JDialog {
 
     private void saveTable(File file) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            // Записуємо заголовки таблиці
             for (int i = 0; i < myJTable.getColumnCount(); i++) {
                 writer.write(myJTable.getColumnName(i));
                 if (i < myJTable.getColumnCount() - 1) {
@@ -94,7 +111,6 @@ public class ShapeTable extends JDialog {
             }
             writer.newLine();
 
-            // Записуємо дані таблиці
             for (int i = 0; i < tableModel.getRowCount(); i++) {
                 for (int j = 0; j < tableModel.getColumnCount(); j++) {
                     writer.write(tableModel.getValueAt(i, j).toString());
@@ -109,9 +125,16 @@ public class ShapeTable extends JDialog {
         }
     }
 
-    private void loadTable() {
-        if (myJFileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            loadTable(myJFileChooser.getSelectedFile());
+    public void loadAndRepaint(MainEditor editor, JFileChooser myJFileChooser) {
+        loadTable(myJFileChooser);
+        editor.getCurrentShapeEditor().updateShapesArrayFromTable(tableModel);
+        editor.repaintShapes();
+    }
+
+    public void loadTable(JFileChooser owner) {
+        if (owner.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            loadTable(owner.getSelectedFile());
+
         }
     }
 

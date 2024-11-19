@@ -7,7 +7,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 public class ShapeEditorFrame extends JFrame {
     private final MainEditor editor;
@@ -36,10 +35,20 @@ public class ShapeEditorFrame extends JFrame {
         showTableItem.addActionListener(e -> editor.showTable());
         fileMenu.add(showTableItem);
 
+        JMenuItem saveTable = new JMenuItem("Зберегти як");
+        saveTable.addActionListener(e -> editor.saveTable(fileChooser));
+        fileMenu.add(saveTable);
+
+        JMenuItem loadTable = new JMenuItem("Завантажити з");
+        loadTable.addActionListener(e -> {
+            editor.loadAndRepaint(editor, fileChooser);
+        });
+        fileMenu.add(loadTable);
+
         JMenuItem deleteAllShapes = new JMenuItem("Видалити усі елементи");
         deleteAllShapes.addActionListener(e -> {
             editor.getCurrentShapeEditor().deleteShapes();
-            editor.repaint();
+            editor.repaintShapes();
         });
         fileMenu.add(deleteAllShapes);
 

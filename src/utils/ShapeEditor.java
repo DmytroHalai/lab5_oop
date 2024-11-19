@@ -3,15 +3,11 @@ package utils;
 import builder.MainEditor;
 import drawers.Shape;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Vector;
 
 
@@ -123,57 +119,18 @@ public class ShapeEditor {
         }
     }
 
-    /**
-     * Зберігає таблицю з фігурами у файл.
-     *
-     * @param file файл, у який потрібно зберегти дані
-     * @throws IOException якщо виникла помилка вводу/виводу
-     */
-    public void saveTableToFile(File file) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            for (Shape shape : shapes) {
-                // Формат: назва_фігури,x1,y1,x2,y2
-                String line = String.format("%s,%d,%d,%d,%d",
-                        shape.getType(), // Припускаємо, що Shape має метод getName()
-                        shape.getXs1(), shape.getYs1(), shape.getXs2(), shape.getYs2());
-                writer.write(line);
-                writer.newLine();
-            }
+    public void removeShape(int index) {
+        if (index >= 0 && index < shapes.size()) {
+            shapes.remove(index);
+            updateTable();
         }
     }
 
-    /**
-     * Завантажує таблицю з фігурами з файлу.
-     *
-     * @param file файл, з якого потрібно завантажити дані
-     * @throws IOException якщо виникла помилка вводу/виводу
-     */
-    public void loadTableFromFile(File file) throws IOException {
-        try (Scanner scanner = new Scanner(file)) {
-            shapes.clear();
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] parts = line.split(",");
-                if (parts.length != 5) {
-                    System.err.println("Некоректний формат рядка: " + line);
-                    continue;
-                }
+    public void saveTable(JFileChooser owner) {
+        shapeTable.saveTable(owner);
+    }
 
-                try {
-                    String name = parts[0];
-                    int x1 = Integer.parseInt(parts[1]);
-                    int y1 = Integer.parseInt(parts[2]);
-                    int x2 = Integer.parseInt(parts[3]);
-                    int y2 = Integer.parseInt(parts[4]);
-
-                    Shape shape = ShapeFactory.createShape(name);
-                    shape.set(x1, y1, x2, y2);
-                    shapes.add(shape);
-                } catch (NumberFormatException | NullPointerException e) {
-                    System.err.println("Помилка у рядку: " + line);
-                }
-            }
-            updateTable();
-        }
+    public void loadAndRepaint(MainEditor editor, JFileChooser myJFileChooser) {
+        shapeTable.loadAndRepaint(editor, myJFileChooser);
     }
 }
