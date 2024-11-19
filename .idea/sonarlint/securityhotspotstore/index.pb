@@ -19,3 +19,15 @@ M
 -.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
 S
 #.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
+@
+src/diagram.puml,b\e\bebac4384185a72e6cb1de0e93ecb5d64e0fe613
+M
+src/drawers/StrokeSetter.java,6\f\6f4d688f9ecc7b7edad2e3e4b04a4513faf4a279
+K
+src/utils/ShapeFactory.java,7\f\7f9461a8c660e2dbeb6722101b954aad385310a8
+F
+src/drawers/Shape.java,5\b\5b5146bc2a815dfbba69c9bc5e9c3bd44b246c52
+J
+src/drawers/RectShape.java,e\a\ea5b3f7f1a725fdff5fab6ee3763af9040ae22d3
+J
+src/drawers/CubeShape.java,f\3\f359710e76e9dd273d784a859cf8b3b413027a85

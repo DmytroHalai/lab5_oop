@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-
 public class ShapeEditor {
     protected final List<Shape> shapes = new ArrayList<>();
     private final ShapeTable shapeTable;
@@ -24,6 +23,7 @@ public class ShapeEditor {
 
     public void onLBdown(int x, int y) {
         isDragging = true;
+        this.highlightedShape = null;
         if (currentShape != null) {
             currentShape.set(x, y, x, y);
         }

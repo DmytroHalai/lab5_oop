@@ -60,6 +60,6 @@ public class CubeShape extends Shape implements LineDrawer, RectDrawer {
 
     @Override
     public String getType() {
-        return "Куб";
+        return "Cube";
     }
 }

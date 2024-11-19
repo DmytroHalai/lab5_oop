@@ -10,7 +10,7 @@ public class ShapeFactory {
             case "LineOO" -> new LineOOShape();
             case "Line" -> new LineShape();
             case "Point" -> new PointShape();
-            case "Куб" -> new CubeShape();
+            case "Cube" -> new CubeShape();
             default -> throw new IllegalArgumentException("Unknown shape type: " + type);
         };
     }

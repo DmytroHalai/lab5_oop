@@ -40,9 +40,7 @@ public class ShapeEditorFrame extends JFrame {
         fileMenu.add(saveTable);
 
         JMenuItem loadTable = new JMenuItem("Завантажити з");
-        loadTable.addActionListener(e -> {
-            editor.loadAndRepaint(editor, fileChooser);
-        });
+        loadTable.addActionListener(e -> editor.loadAndRepaint(editor, fileChooser));
         fileMenu.add(loadTable);
 
         JMenuItem deleteAllShapes = new JMenuItem("Видалити усі елементи");
