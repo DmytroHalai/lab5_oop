@@ -1,6 +1,6 @@
 package utils;
 
-import builder.MyEditor;
+import builder.MainEditor;
 import drawers.Shape;
 
 import javax.swing.*;
@@ -8,10 +8,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
-public class MyTable extends JDialog {
+public class ShapeTable extends JDialog {
     private final DefaultTableModel tableModel;
 
-    public MyTable(Frame owner, MyEditor editor) {
+    public ShapeTable(Frame owner, MainEditor editor) {
         super(owner, "Список об'єктів", false);
         setLayout(new BorderLayout());
 

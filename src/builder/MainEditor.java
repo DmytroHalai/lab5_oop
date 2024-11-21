@@ -6,10 +6,10 @@ import utils.ShapeEditor;
 import javax.swing.*;
 import java.awt.*;
 
-public class MyEditor extends JPanel {
+public class MainEditor extends JPanel {
     private final transient ShapeEditor shapesEditor;
 
-    public MyEditor(Frame owner) {
+    public MainEditor(Frame owner) {
         shapesEditor = new ShapeEditor(this, owner);
     }
 

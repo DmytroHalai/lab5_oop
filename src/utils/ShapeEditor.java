@@ -1,6 +1,6 @@
 package utils;
 
-import builder.MyEditor;
+import builder.MainEditor;
 import drawers.Shape;
 
 import java.awt.*;
@@ -10,13 +10,13 @@ import java.util.List;
 
 public class ShapeEditor {
     protected final List<Shape> shapes = new ArrayList<>();
-    private final MyTable shapeTable;
+    private final ShapeTable shapeTable;
     protected boolean isDragging = false;
     protected Shape currentShape;
     private Shape highlightedShape;
 
-    public ShapeEditor(MyEditor editor, Frame owner) {
-        shapeTable = new MyTable(owner, editor);
+    public ShapeEditor(MainEditor editor, Frame owner) {
+        shapeTable = new ShapeTable(owner, editor);
     }
 
     public void onLBdown(int x, int y) {
@@ -79,4 +79,9 @@ public class ShapeEditor {
     public List<Shape> getShapes() {
         return shapes;
     }
+
+    public ShapeTable getShapeTable() {
+        return shapeTable;
+    }
+
 }
