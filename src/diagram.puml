@@ -4,37 +4,81 @@ package utils {
     class ShapeEditor{
         #boolean isDragging
         #List<Shape> shapes
+        -ShapeTable shapeTable
+        #Shape currentShape
+        -Shape highlightedShape
+        +ShapeEditor(MainEditor editor, Frame owner)
         +onLBdown(int x, int y)
         +onLBup()
         +onMouseMove(int x, int y)
         +onPaint()
         +void setCurrentShape(Shape shape)
+        +void undoLastShape()
+        +void highlightShape(Shape shape)
+        +void updateTable()
+        +void showTable()
+        +List<Shape> getShapes()
+        +void deleteShapes()
+        +void updateShapesArrayFromTable(DefaultTableModel table)
+        +void createShapeFromRow(Vector row)
+    }
+
+    class ShapeTable{
+        -DefaultTableModel tableModel
+        -JTable myJTable
+        -JFileChooser myJFileChooser
+        +ShapeTable(Frame owner, MainEditor editor)
+        +void addRow(String name, int x1, int y1, int x2, int y2)
+        +void updateTable(List<Shape> shapes)
+        -void saveTable()
+        -void saveTable(File file)
+        -Vector<String> getColumnNames()
+        -void loadTable()
+        -void loadTable(File file)
+    }
+
+    class ShapeFactory{
+        +Shape createShape(String type)
     }
 }
 
 package builder {
     class ShapeEditorFrame {
         -MyEditor editor
-        -JButton lastPressedButton
         +ShapeEditorFrame()
-        -void initMouseListeners()
         -JMenuBar createMenuBar()
-        -void addToolBarButton(JPanel panel, String iconPath, ActionListener action)
-        -void addMenuItem(JMenu menu, String name, ActionListener action)
-        -JButton createButtonWithIcon(String iconPath)
-        -void changeButtonColor(ActionEvent e)
+        -void initMouseListeners()
+        -void initKeyBindings()
     }
 
-    class MyEditor {
-        -ShapeEditor shapeEditor
-        +MyEditor()
+    class MainEditor {
+        -ShapeEditor shapesEditor
+        +MainEditor(Frame owner)
         +void setCurrentShape(Shape shape)
+        +ShapeEditor getCurrentShapeEditor()
         +onLBdown(Graphics g, int x, int y)
         +onLBup(Graphics g)
         +onMouseMove(Graphics g, int x, int y)
         #void paintComponent(Graphics g)
+        +void showTable()
+        +void highlightShape(Shape shape)
+        +void repaintShapes()
     }
 
+    class ShapeToolBar {
+        -JPanel panel
+        -JButton lastPressedButton
+        -MainEditor editor
+        +ShapeToolBar(MainEditor editor)
+        +JPanel getPanel()
+        -void initButtons()
+        -void addToolBarButton(String iconPath, ActionListener action)
+        -JButton createButtonWithIcon(String iconPath)
+        -void setCurrentShape(Shape shape, ActionEvent e)
+        -void changeButtonColor(ActionEvent e)
+    }
+
+ShapeToolBar <-- ShapeEditorFrame
 }
 
 package drawers {
@@ -100,8 +144,10 @@ class Main {
     +main(String[] args)
 }
 
-Main --> MyEditor
-ShapeEditorFrame --> MyEditor
-MyEditor --> ShapeEditor
+Main --> MainEditor
+ShapeEditorFrame --> MainEditor
+MainEditor --> ShapeEditor
 Shape <-- ShapeEditor
+ShapeFactory <-- ShapeEditor
+ShapeTable <-- ShapeEditor
 @enduml

@@ -4,6 +4,7 @@ import java.awt.*;
 
 public abstract class Shape {
     public int xs1;
+
     public int ys1;
     protected int xs2;
     protected int ys2;
@@ -32,6 +33,23 @@ public abstract class Shape {
     public int getYs2() {
         return ys2;
     }
+
+    public void setXs1(int xs1) {
+        this.xs1 = xs1;
+    }
+
+    public void setYs1(int ys1) {
+        this.ys1 = ys1;
+    }
+
+    public void setXs2(int xs2) {
+        this.xs2 = xs2;
+    }
+
+    public void setYs2(int ys2) {
+        this.ys2 = ys2;
+    }
+
 
     public abstract String getType();
 }

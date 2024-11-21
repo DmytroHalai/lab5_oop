@@ -3,10 +3,12 @@ package utils;
 import builder.MainEditor;
 import drawers.Shape;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Vector;
 
 public class ShapeEditor {
     protected final List<Shape> shapes = new ArrayList<>();
@@ -21,6 +23,7 @@ public class ShapeEditor {
 
     public void onLBdown(int x, int y) {
         isDragging = true;
+        this.highlightedShape = null;
         if (currentShape != null) {
             currentShape.set(x, y, x, y);
         }
@@ -80,8 +83,54 @@ public class ShapeEditor {
         return shapes;
     }
 
-    public ShapeTable getShapeTable() {
-        return shapeTable;
+    public void deleteShapes(){
+        if (!shapes.isEmpty()) {
+            shapes.clear();
+            updateTable();
+        }
     }
 
+    public void updateShapesArrayFromTable(DefaultTableModel table){
+        shapes.clear();
+        int columnCount = table.getRowCount();
+        Vector<Vector> dataVector = table.getDataVector();
+        for (int i = 0; i < columnCount; i++){
+            createShapeFromRow(dataVector.get(i));
+        }
+        updateTable();
+
+    }
+
+    private void createShapeFromRow(Vector row) {
+        try {
+            String name = (String) row.get(0);
+            int x1 = Integer.parseInt((String) row.get(1));
+            int y1 = Integer.parseInt((String) row.get(2));
+            int x2 = Integer.parseInt((String) row.get(3));
+            int y2 = Integer.parseInt((String) row.get(4));
+
+            Shape shape = ShapeFactory.createShape(name);
+            shape.set(x1, y1, x2, y2);
+            shapes.add(shape);
+        } catch (NumberFormatException e) {
+            System.err.println("Помилка конвертації координат: " + e.getMessage());
+        } catch (NullPointerException e) {
+            System.err.println("Некоректний рядок у таблиці: " + e.getMessage());
+        }
+    }
+
+    public void removeShape(int index) {
+        if (index >= 0 && index < shapes.size()) {
+            shapes.remove(index);
+            updateTable();
+        }
+    }
+
+    public void saveTable(JFileChooser owner) {
+        shapeTable.saveTable(owner);
+    }
+
+    public void loadAndRepaint(MainEditor editor, JFileChooser myJFileChooser) {
+        shapeTable.loadAndRepaint(editor, myJFileChooser);
+    }
 }
