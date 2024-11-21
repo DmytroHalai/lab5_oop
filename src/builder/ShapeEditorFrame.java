@@ -33,7 +33,7 @@ public class ShapeEditorFrame extends JFrame {
 
         JMenuItem showTableItem = new JMenuItem("Показати таблицю");
         showTableItem.addActionListener(e -> editor.showTable());
-        fileMenu.add(showTableItem);
+        shapeMenu.add(showTableItem);
 
         JMenuItem saveTable = new JMenuItem("Зберегти як");
         saveTable.addActionListener(e -> editor.saveTable(fileChooser));
@@ -48,7 +48,7 @@ public class ShapeEditorFrame extends JFrame {
             editor.getCurrentShapeEditor().deleteShapes();
             editor.repaintShapes();
         });
-        fileMenu.add(deleteAllShapes);
+        shapeMenu.add(deleteAllShapes);
 
         JMenuItem saveSceneItem = new JMenuItem("Зберегти сцену як PNG");
         saveSceneItem.addActionListener(e -> saveSceneAsImage());
